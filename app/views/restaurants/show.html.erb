@@ -1,0 +1,24 @@
+<div class="mb-4 mt-4 p-4"><h2><strong><%= @restaurant.name %><strong></h2></div>
+<div>
+  <div class="col-md-6"><h4>Address:    <%= @restaurant.address %></h4></div>
+  <div class="col-md-6"><h4>Phone Number:    <%= @restaurant.phone_number %> %></h4></div>
+  <div class="col-md-6"><h4>Category:    <%= @restaurant.category.capitalize %></h4></div>
+  <div class="col-md-6"><ul class="list-unstyled"><li><%= link_to "Back to restaurant list", restaurants_path %></li></ul></div>
+</div>
+
+<div class="col-md-8 mb-4 mt-4 p-4">
+  <% @restaurant.reviews.each do |review| %>
+    <p><%= review.content %></p>
+  <% end %>
+</div>
+
+<div class="col-md-8 mb-4 mt-4 p-4">
+  <%= simple_form_for [ @restaurant, @review ] do |f| %>
+    <%= f.label 'Add a new review'  %>
+    <%= f.input :content %>
+    <%= f.collection_radio_buttons :rating, [[5], [4], [3], [2], [1]], :first, :last, item_wrapper_tag: false, boolean_style: :inline do |b| %>
+      <%= b.radio_button + b.label {''} %>
+    <% end %>
+    <%= f.submit class: 'btn btn-primary' %>
+  <% end %>
+</div>
